@@ -16,16 +16,18 @@ pipeline {
                 }
             }
 
-    stage('Deploy to Tomcat') {
-       steps {
-           // Deploy the application to Tomcat using the Deploy to container Plugin
-           tomcatDeploy(
-               credentialsId: 'tomcat',
-               war: 'target/*.war',
-               containerId: 'http://localhost:9090'
-           )
-      }
-    }
+  stage('SonarQube Quality Gate') {
+              steps {
+                  // Check SonarQube quality gate status
+                  script {
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                          error "SonarQube quality gate failed!"
+                      }
+                  }
+              }
+          }
+
 
   }
 }
