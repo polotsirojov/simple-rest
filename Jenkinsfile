@@ -14,5 +14,16 @@ pipeline {
       }
     }
 
+    stage('Deploy to Tomcat') {
+       steps {
+           // Deploy the application to Tomcat using the Deploy to container Plugin
+           tomcatDeploy(
+               credentialsId: 'tomcat',
+               war: 'target/*.war',
+               containerId: 'http://localhost:9090'
+           )
+      }
+    }
+
   }
 }
