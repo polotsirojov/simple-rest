@@ -9,8 +9,8 @@ pipeline {
 
     stage('sonar-scan') {
       steps {
-        withSonarQubeEnv(installationName: 'sonarscan', credentialsId: 'squ_cb3f53722c82960e5e2a793fb585d3a1025cd4ec')
-        waitForQualityGate(credentialsId: 'squ_cb3f53722c82960e5e2a793fb585d3a1025cd4ec', abortPipeline: true)
+        withSonarQubeEnv(installationName: 'sonarToken', credentialsId: 'sonarToken')
+        waitForQualityGate(credentialsId: 'sonarToken', abortPipeline: true)
       }
     }
 
