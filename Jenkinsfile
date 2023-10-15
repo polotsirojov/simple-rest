@@ -6,19 +6,24 @@ pipeline {
         bat 'mvn clean install'
       }
     }
+stage('Static Analysis') {
+      withSonarQubeEnv('sonarToken')
+      {
+        bat 'mvn clean package sonar:sonar
+   	echo 'Static Analysis Completed'
+      }
 
-  stage('SonarQube Quality Gate') {
-              steps {
-                  // Check SonarQube quality gate status
-                  script {
-                      def qg = waitForQualityGate()
-                      if (qg.status != 'OK') {
-                          error "SonarQube quality gate failed!"
-                      }
-                  }
-              }
-          }
-
+    stage("Quality Gate"){
+      timeout(time: 1, unit: 'HOURS')
+      {
+        waitForQualityGate abortPipeline: true
+        def qg= waitForQualityGate()
+        if (qg.status!= 'OK'){
+          error "Pipeline aborted due to quality gate failure: ${qg.status}"
+        }
+      }
+      echo 'Quality Gate Passed'
+    }
 
   }
 }
