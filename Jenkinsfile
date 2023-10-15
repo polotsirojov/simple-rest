@@ -9,7 +9,7 @@ pipeline {
 stage('Static Analysis') {
       withSonarQubeEnv('sonarToken')
       {
-        bat 'mvn clean package sonar:sonar
+        bat 'mvn clean package sonar:sonar'
    	echo 'Static Analysis Completed'
       }
 
