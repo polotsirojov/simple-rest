@@ -7,15 +7,6 @@ pipeline {
       }
     }
 
-     stage('sonar-scan') {
-                steps {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-
   stage('SonarQube Quality Gate') {
               steps {
                   // Check SonarQube quality gate status
