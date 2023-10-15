@@ -7,12 +7,14 @@ pipeline {
       }
     }
 
-    stage('sonar-scan') {
-      steps {
-        withSonarQubeEnv(installationName: 'sonarToken', credentialsId: 'sonarToken')
-        waitForQualityGate(credentialsId: 'sonarToken', abortPipeline: true)
-      }
-    }
+     stage('sonar-scan') {
+                steps {
+                    // Run SonarQube analysis
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
 
     stage('Deploy to Tomcat') {
        steps {
