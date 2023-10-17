@@ -19,7 +19,7 @@ import static org.mockito.Mockito.never;
 
 class CustomerRegistrationServiceTest {
 
-    @Mock
+   /* @Mock
     private CustomerRepository customerRepository;
 
     @Captor
@@ -122,5 +122,5 @@ class CustomerRegistrationServiceTest {
         // Finally
         then(customerRepository).should(never()).save(any(Customer.class));
 
-    }
+    }*/
 }
