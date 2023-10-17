@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -72,6 +73,12 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<!-- SonarQube Maven Plugin -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.0.2155</version>
 			</plugin>
 		</plugins>
 	</build>

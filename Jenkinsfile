@@ -7,23 +7,26 @@ pipeline {
       }
     }
 stage('Static Analysis') {
-      withSonarQubeEnv('sonarToken')
-      {
-        bat 'mvn clean package sonar:sonar'
-   	echo 'Static Analysis Completed'
-      }
+      stage('SonarQube analysis') {
+                  steps {
+                      withSonarQubeEnv('SonarQube') {
+                          bat 'mvn clean package sonar:sonar'
+                      }
+                  }
+              }
 
-    stage("Quality Gate"){
-      timeout(time: 1, unit: 'HOURS')
-      {
-        waitForQualityGate abortPipeline: true
-        def qg= waitForQualityGate()
-        if (qg.status!= 'OK'){
-          error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        }
-      }
-      echo 'Quality Gate Passed'
-    }
+    stage("Quality gate") {
+                steps {
+                    timeout(time: 1, unit: 'HOURS') {
+                        script {
+                            def qg = waitForQualityGate()
+                            if (qg.status != 'OK') {
+                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                            }
+                        }
+                    }
+                }
+            }
 
   }
 }
