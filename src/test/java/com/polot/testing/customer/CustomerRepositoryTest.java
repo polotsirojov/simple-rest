@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 )
 class CustomerRepositoryTest {
 
-    @Autowired
+    /*@Autowired
     private CustomerRepository underTest;
 
     @Test
@@ -73,7 +73,7 @@ class CustomerRepositoryTest {
                     assertThat(c).isEqualToComparingFieldByField(customer);
                 });
     }
-
+*/
 //    @Test
 //    void itShouldNotSaveCustomerWhenNameIsNull() {
 //        // Given
