@@ -6,8 +6,8 @@ pipeline {
         bat 'mvn clean install'
       }
     }
-stage('Static Analysis') {
-      stage('SonarQube analysis') {
+
+   stage('SonarQube analysis') {
                   steps {
                       withSonarQubeEnv('SonarQube') {
                           bat 'mvn clean package sonar:sonar'
