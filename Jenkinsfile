@@ -15,9 +15,10 @@ pipeline {
             timeout(time: 1, unit: 'HOURS') {
                 script {
                     def qg = null
+                    sleep time: 1, unit: 'MINUTES'
                     qg = waitForQualityGate()
                     // Add sleep before retrieving the quality gate status
-                    sleep time: 15, unit: 'SECONDS'
+                    sleep time: 1, unit: 'MINUTES'
                     // Retry retrieving the quality gate status
                         qg = waitForQualityGate()
                         echo "Quality gate status: ${qg.status}"
