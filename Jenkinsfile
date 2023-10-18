@@ -5,7 +5,7 @@ pipeline {
    stage('SonarQube analysis') {
                   steps {
                       withSonarQubeEnv('SonarQube') {
-                          bat 'mvn clean sonar:sonar'
+                          bat 'mvn clean package sonar:sonar'
                       }
                   }
               }
@@ -16,7 +16,7 @@ pipeline {
                 script {
                     def qg = null
                     // Add sleep before retrieving the quality gate status
-                    sleep time: 5, unit: 'SECONDS'
+                    sleep time: 15, unit: 'SECONDS'
                     // Retry retrieving the quality gate status multiple times
                     for (int i = 0; i < 5; i++) {
                         qg = waitForQualityGate()
