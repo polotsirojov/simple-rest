@@ -10,7 +10,7 @@ pipeline {
                   -D sonar.password=Soliha.2020 \
                   -D sonar.projectKey=testing \
                   -D sonar.exclusions=vendor/**,resources/**,**/*.java \
-                  -D sonar.host.url=http://192.168.1XX.XX:9000/"
+                  -D sonar.host.url=http://192.168.1.130:9000/"
                 }
 
               }
