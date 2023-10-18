@@ -4,6 +4,7 @@ pipeline {
 
    stage('SonarQube analysis') {
    steps{
+   step{
             def scannerHome = tool 'SonarQube';
                 withSonarQubeEnv('SonarQube') {
                   sh "${scannerHome}/bin/sonar-scanner \
@@ -13,6 +14,7 @@ pipeline {
                   -D sonar.exclusions=vendor/**,resources/**,**/*.java \
                   -D sonar.host.url=http://192.168.1.130:9000/"
                 }
+}
 }
               }
 
