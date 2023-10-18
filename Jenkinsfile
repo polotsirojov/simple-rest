@@ -20,6 +20,7 @@ pipeline {
                     // Retry retrieving the quality gate status multiple times
                     for (int i = 0; i < 5; i++) {
                         qg = waitForQualityGate()
+                        echo "Quality gate status: ${qg.status}"
                         if (qg.status == 'SUCCESS') {
                             break
                         }
