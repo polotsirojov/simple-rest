@@ -22,7 +22,7 @@ pipeline {
                     // Retry retrieving the quality gate status
                         qg = waitForQualityGate()
                         echo "Quality gate status: ${qg.status}"
-                    if (qg.status != 'SUCCESS') {
+                    if (qg.status != 'OK') {
                         echo "Quality gate status: ${qg.status}"
                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     } else {
