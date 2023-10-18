@@ -3,26 +3,28 @@ pipeline {
   stages {
 
    stage('SonarQube analysis') {
-   steps{
-   step{
-            def scannerHome = tool 'SonarQube';
-                withSonarQubeEnv('SonarQube') {
-                  sh "${scannerHome}/bin/sonar-scanner \
-                  -D sonar.login=admin \
-                  -D sonar.password=Soliha.2020 \
-                  -D sonar.projectKey=testing \
-                  -D sonar.exclusions=vendor/**,resources/**,**/*.java \
-                  -D sonar.host.url=http://192.168.1.130:9000/"
-                }
-}
-}
+                  steps {
+                      withSonarQubeEnv('SonarQube') {
+                          bat 'mvn clean package sonar:sonar'
+                      }
+                  }
               }
 
     stage("Quality gate") {
-                steps {
-                    waitForQualityGate abortPipeline: true
+        steps {
+            timeout(time: 1, unit: 'MINUTES') {
+                script {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        echo "Quality gate status: ${qg.status}"
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    } else {
+                        echo "Quality gate status: ${qg.status}"
+                    }
                 }
             }
+        }
+    }
 
   }
 }
