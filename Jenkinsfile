@@ -20,12 +20,12 @@ pipeline {
                     // Retry retrieving the quality gate status multiple times
                     for (int i = 0; i < 5; i++) {
                         qg = waitForQualityGate()
-                        if (qg.status != null) {
+                        if (qg.status == 'SUCCESS') {
                             break
                         }
                         sleep time: 10, unit: 'SECONDS'
                     }
-                    if (qg.status != 'OK') {
+                    if (qg.status != 'SUCCESS') {
                         echo "Quality gate status: ${qg.status}"
                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
                     } else {
