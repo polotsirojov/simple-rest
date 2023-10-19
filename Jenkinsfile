@@ -40,12 +40,13 @@ environment {
         }
     }
 
-stage('Deploy to Tomcat') {
-  steps {
-        bat "copy ${WAR_FILE} ${TOMCAT_HOME}\\webapps\\testing-0.0.1-SNAPSHOT.war"
-        bat "${TOMCAT_HOME}\\bin\\startup.bat"
-    }
-  }
+  stage('Deploy') {
+        steps {
+          bat 'docker compose down'
+          bat 'docker up -d'
+        }
+      }
+
 }
 
 
