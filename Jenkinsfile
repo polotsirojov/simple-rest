@@ -2,7 +2,7 @@ pipeline {
 
 environment {
     TOMCAT_HOME = "C:\\apache-tomcat-9.0.82"
-    WAR_FILE = "${WORKSPACE}\\springboot-rest-blue-ocean\\target\\testing-0.0.1-SNAPSHOT.war.war"
+    WAR_FILE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\springboot-rest-blue-ocean_main\target\\testing-0.0.1-SNAPSHOT.war"
   }
 
   agent any
@@ -41,10 +41,9 @@ environment {
 
 stage('Deploy to Tomcat') {
       steps {
-        bat "${TOMCAT_HOME}\\bin\\shutdown.bat" // Stop Tomcat
-        bat "rmdir /s /q ${TOMCAT_HOME}\\webapps\\ROOT" // Remove old deployment
-        bat "copy ${WAR_FILE} ${TOMCAT_HOME}\\webapps\\ROOT.war" // Copy the WAR file
-        bat "${TOMCAT_HOME}\\bin\\startup.bat" // Start Tomcat
+        bat "C:\\apache-tomcat-9.0.82\\bin\\shutdown.bat" // Stop Tomcat
+        bat "copy ${WAR_FILE} C:\\apache-tomcat-9.0.82\\webapps\\testing-0.0.1-SNAPSHOT.war" // Copy the WAR file
+        bat "C:\\apache-tomcat-9.0.82\\bin\\startup.bat" // Start Tomcat
       }
     }
 
