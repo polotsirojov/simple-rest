@@ -1,11 +1,4 @@
 pipeline {
-
-environment {
-    CATALINA_HOME = "C:\\apache-tomcat-9.0.82"
-    TOMCAT_HOME = "C:\\apache-tomcat-9.0.82"
-    WAR_FILE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\springboot-rest-blue-ocean_main\\target\\testing-0.0.1-SNAPSHOT.war"
-  }
-
   agent any
   stages {
 
@@ -43,6 +36,7 @@ environment {
   stage('Deploy') {
         steps {
           bat 'docker stop springboot-backend'
+          bat 'docker rm springboot-backend'
           bat 'docker build -t my-app-image .'
           bat 'docker run -d --name springboot-backend -p 81:81 my-app-image'
         }

@@ -30,13 +30,6 @@ services:
         ports:
             -   5433:5432
 
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-          - 81:81
-
 volumes:
     sonarqube_database_data:
     sonarqube_bundled-plugins:
