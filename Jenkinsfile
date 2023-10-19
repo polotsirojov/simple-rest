@@ -42,8 +42,9 @@ environment {
 
   stage('Deploy') {
         steps {
-          bat 'docker compose down'
-          bat 'docker up -d'
+          bat 'docker stop springboot-backend'
+          bat 'docker build -t my-app-image .'
+          bat 'docker run -d --name springboot-backend -p 81:81 my-app-image'
         }
       }
 
