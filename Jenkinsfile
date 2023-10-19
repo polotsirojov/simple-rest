@@ -41,16 +41,16 @@ environment {
     }
 
 stage('Deploy to Tomcat') {
-      steps {
-      try{
-      bat "${TOMCAT_HOME}\\bin\\shutdown.bat"
-       }catch(exc) {
-           echo 'cannot shutdown'
-       }
+  steps {
+    script {
+      catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+        bat "${TOMCAT_HOME}\\bin\\shutdown.bat" || true
         bat "copy ${WAR_FILE} ${TOMCAT_HOME}\\webapps\\testing-0.0.1-SNAPSHOT.war"
         bat "${TOMCAT_HOME}\\bin\\startup.bat"
       }
     }
+  }
+}
 
 
   }
