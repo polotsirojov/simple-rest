@@ -3,7 +3,7 @@ pipeline {
 environment {
     CATALINA_HOME = "C:\\apache-tomcat-9.0.82"
     TOMCAT_HOME = "C:\\apache-tomcat-9.0.82"
-    WAR_FILE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\springboot-rest-blue-ocean_main\target\\testing-0.0.1-SNAPSHOT.war"
+    WAR_FILE = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\springboot-rest-blue-ocean_main\\target\\testing-0.0.1-SNAPSHOT.war"
   }
 
   agent any
@@ -42,9 +42,9 @@ environment {
 
 stage('Deploy to Tomcat') {
       steps {
-        bat "C:\\apache-tomcat-9.0.82\\bin\\shutdown.bat" // Stop Tomcat
-        bat "copy ${WAR_FILE} C:\\apache-tomcat-9.0.82\\webapps\\testing-0.0.1-SNAPSHOT.war" // Copy the WAR file
-        bat "C:\\apache-tomcat-9.0.82\\bin\\startup.bat" // Start Tomcat
+        bat "${TOMCAT_HOME}\\bin\\shutdown.bat"
+        bat "copy ${WAR_FILE} ${TOMCAT_HOME}\\webapps\\testing-0.0.1-SNAPSHOT.war"
+        bat "${TOMCAT_HOME}\\bin\\startup.bat"
       }
     }
 
